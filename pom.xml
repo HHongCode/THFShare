@@ -5,11 +5,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>edu.wlxy</groupId>
-  <artifactId>testssmweb</artifactId>
+  <artifactId>THFShare</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>war</packaging>
 
-  <name>testssmweb Maven Webapp</name>
+  <name>THFShare Maven Webapp</name>
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
@@ -64,7 +64,7 @@
       <version>2.0.0</version>
     </dependency>
 
-    <!--逆向生成mybaits代码-->
+    <!--逆向生成mybatis代码-->
     <dependency>
       <groupId>org.mybatis.generator</groupId>
       <artifactId>mybatis-generator-core</artifactId>
@@ -189,7 +189,7 @@
   </dependencies>
 
   <build>
-    <finalName>testssmweb</finalName>
+    <finalName>THFShare</finalName>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <plugin>
@@ -222,7 +222,7 @@
           <version>2.8.2</version>
         </plugin>
 
-        <!--mybaits逆向工程插件-->
+        <!--mybatis逆向工程插件-->
         <plugin>
           <groupId>org.mybatis.generator</groupId>
           <artifactId>mybatis-generator-maven-plugin</artifactId>

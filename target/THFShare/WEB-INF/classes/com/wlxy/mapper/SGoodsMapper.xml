@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wlxy.dao.SGoodsMapper">
+    <resultMap id="BaseResultMap" type="com.wlxy.model.SGoods">
+        <id column="goodsid" jdbcType="INTEGER" property="goodsid" />
+        <result column="goodsname" jdbcType="VARCHAR" property="goodsname" />
+        <result column="detailaddr" jdbcType="VARCHAR" property="detailaddr" />
+        <result column="desciption" jdbcType="VARCHAR" property="desciption" />
+        <result column="intention" jdbcType="VARCHAR" property="intention" />
+        <result column="photourl" jdbcType="VARCHAR" property="photourl" />
+        <result column="createtime" jdbcType="TIMESTAMP" property="createtime" />
+        <result column="sharetime" jdbcType="TIMESTAMP" property="sharetime" />
+        <result column="userid" jdbcType="VARCHAR" property="userid" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        goodsid, goodsname, detailaddr, desciption, intention, photourl, createtime, sharetime, userid
+    </sql>
+
+    <!--使用主键hotelid查询酒店信息，并返回一个酒店对象-->
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from s_goods
+        where goodsid = #{goodsid,jdbcType=INTEGER}
+    </select>
+
+    <!--使用动态查询酒店信息,并返回List<THotel>类型 -->
+    <select id="selectBySelective" parameterType="com.wlxy.model.SGoods"
+            resultType="com.wlxy.model.SGoods">
+        select * from s_goods where 1=1
+        <if test="goodsid!=null and goodsid!=0">  <!--字段为数字类型-->
+            and goodsid = #{goodsid}
+        </if>
+        <if test="goodsname!=null and goodsname!=''"> <!--模糊查询-->
+            and goodsname like '%${goodsname}%'
+        </if>
+        <if test="detailaddr!=null and detailaddr!=''"> <!--比较查询-->
+            and detailaddr = #{detailaddr}
+        </if>
+        <if test="desciption!=null and desciption!=''"> <!--模糊查询-->
+            and desciption like '%${desciption}%'
+        </if>
+        <if test="intention!=null and intention!=''"> <!--模糊查询-->
+            and intention like '%${intention}%'
+        </if>
+        <if test="photourl!=null and photourl!=''"> <!--模糊查询-->
+            and photourl like '%${photourl}%'
+        </if>
+        <if test="createtime!=null and createtime!=''"> <!--模糊查询-->
+            and createtime like '%${createtime}%'
+        </if>
+        <if test="sharetime!=null and sharetime!=''"> <!--模糊查询-->
+            and sharetime like '%${sharetime}%'
+        </if>
+        <if test="userid!=null and userid!=''"> <!--比较查询-->
+            and userid = #{userid}
+        </if>
+    </select>
+
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete from s_goods
+        where goodsid = #{goodsid,jdbcType=INTEGER}
+    </delete>
+
+    <insert id="insert" parameterType="com.wlxy.model.SGoods">
+        insert into s_goods (goodsid, goodsname, detailaddr,
+                             desciption, intention, photourl,
+                             createtime, sharetime, userid)
+        values (#{goodsid,jdbcType=INTEGER}, #{goodsname,jdbcType=VARCHAR}, #{detailaddr,jdbcType=VARCHAR},
+                #{desciption,jdbcType=VARCHAR}, #{intention,jdbcType=VARCHAR}, #{photourl,jdbcType=VARCHAR},
+                #{createtime,jdbcType=TIMESTAMP}, #{sharetime,jdbcType=TIMESTAMP},#{userid,jdbcType=VARCHAR})
+    </insert>
+
+    <!--动态插入-->
+    <insert id="insertSelective" parameterType="com.wlxy.model.SGoods">
+        insert into s_goods
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="goodsid != null">
+                goodsid,
+            </if>
+            <if test="goodsname != null">
+                goodsname,
+            </if>
+            <if test="detailaddr != null">
+                detailaddr,
+            </if>
+            <if test="desciption != null">
+                desciption,
+            </if>
+            <if test="intention != null">
+                intention,
+            </if>
+            <if test="photourl != null">
+                photourl,
+            </if>
+            <if test="createtime != null">
+                createtime,
+            </if>
+            <if test="sharetime != null">
+                sharetime,
+            </if>
+            <if test="userid != null">
+                userid,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="goodsid != null">
+                #{goodsid,jdbcType=INTEGER},
+            </if>
+            <if test="goodsname != null">
+                #{goodsname,jdbcType=VARCHAR},
+            </if>
+            <if test="detailaddr != null">
+                #{detailaddr,jdbcType=VARCHAR},
+            </if>
+            <if test="desciption != null">
+                #{desciption,jdbcType=VARCHAR},
+            </if>
+            <if test="intention != null">
+                #{intention,jdbcType=VARCHAR},
+            </if>
+            <if test="photourl != null">
+                #{photourl,jdbcType=VARCHAR},
+            </if>
+            <if test="createtime != null">
+                #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="sharetime != null">
+                #{sharetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="userid != null">
+                #{userid,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <!--动态更新-->
+    <update id="updateByPrimaryKeySelective" parameterType="com.wlxy.model.SGoods">
+        update s_goods
+        <set>
+            <if test="goodsname != null">
+                goodsname = #{goodsname,jdbcType=VARCHAR},
+            </if>
+            <if test="detailaddr != null">
+                detailaddr = #{detailaddr,jdbcType=VARCHAR},
+            </if>
+            <if test="desciption != null">
+                desciption = #{desciption,jdbcType=VARCHAR},
+            </if>
+            <if test="intention != null">
+                intention = #{intention,jdbcType=VARCHAR},
+            </if>
+            <if test="photourl != null">
+                photourl = #{photourl,jdbcType=VARCHAR},
+            </if>
+            <if test="createtime != null">
+                createtime = #{createtime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="sharetime != null">
+                sharetime = #{sharetime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="userid != null">
+                userid = #{userid,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where goodsid = #{goodsid,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.wlxy.model.SGoods">
+        update s_goods
+        set goodsname = #{goodsname,jdbcType=VARCHAR},
+            detailaddr = #{detailaddr,jdbcType=VARCHAR},
+            desciption = #{desciption,jdbcType=VARCHAR},
+            intention = #{intention,jdbcType=VARCHAR},
+            photourl = #{photourl,jdbcType=VARCHAR},
+            createtime = #{createtime,jdbcType=TIMESTAMP},
+            sharetime = #{sharetime,jdbcType=TIMESTAMP},
+            userid = #{userid,jdbcType=VARCHAR}
+        where goodsid = #{goodsid,jdbcType=INTEGER}
+    </update>
+</mapper>
